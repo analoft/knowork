@@ -5,7 +5,7 @@ list.of.packages <- c("tm","pdftools","data.table","plyr")
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 if(length(new.packages))
   install.packages(new.packages)
-sapply(list.of.packages, require, character.only=TRUE)
+invisible(sapply(list.of.packages, require, character.only=TRUE))
 
 
 
