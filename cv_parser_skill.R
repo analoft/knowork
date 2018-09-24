@@ -67,7 +67,7 @@ phone_finder<-function(corpous){
 }
 
 mark_corpus<-function(txt){
-  dt<-read.csv("rules/summary.csv")
+  dt<-read.csv("/var/www/html/rscript/knowork/rules/summary.csv")
   sapply(dt[,1],function(x){grep(x,txt)})->chk
   which(unlist(lapply(chk,function(x){identical(x, integer(0))}))!=T)->ind
   if(identical(ind,integer(0))==T){
@@ -77,7 +77,7 @@ mark_corpus<-function(txt){
     }}
   
   
-  dt<-read.csv("rules/accomplishments.csv")
+  dt<-read.csv("/var/www/html/rscript/knowork/rules/accomplishments.csv")
   sapply(dt[,1],function(x){grep(x,txt)})->chk
   which(unlist(lapply(chk,function(x){identical(x, integer(0))}))!=T)->ind
   if(identical(ind,integer(0))==T){
@@ -88,7 +88,7 @@ mark_corpus<-function(txt){
     }}
   
   
-  dt<-read.csv("rules/awards.csv")
+  dt<-read.csv("/var/www/html/rscript/knowork/rules/awards.csv")
   sapply(dt[,1],function(x){grep(x,txt)})->chk
   which(unlist(lapply(chk,function(x){identical(x, integer(0))}))!=T)->ind
   if(identical(ind,integer(0))==T){
@@ -98,7 +98,7 @@ mark_corpus<-function(txt){
       txt<-sub(dt[,1][i],"***awards",txt)
     }}
   
-  dt<-read.csv("rules/credibility.csv")
+  dt<-read.csv("/var/www/html/rscript/knowork/rules/credibility.csv")
   sapply(dt[,1],function(x){grep(x,txt)})->chk
   which(unlist(lapply(chk,function(x){identical(x, integer(0))}))!=T)->ind
   if(identical(ind,integer(0))==T){
@@ -108,7 +108,7 @@ mark_corpus<-function(txt){
       txt<-sub(dt[,1][i],"***credibility",txt)
     }
   }
-  dt<-read.csv("rules/education.csv")
+  dt<-read.csv("/var/www/html/rscript/knowork/rules/education.csv")
   sapply(dt[,1],function(x){grep(x,txt)})->chk
   which(unlist(lapply(chk,function(x){identical(x, integer(0))}))!=T)->ind
   if(identical(ind,integer(0))==T){
@@ -117,7 +117,7 @@ mark_corpus<-function(txt){
     for(i in ind){txt<-sub(dt[,1][i],"***education",txt)
     }}
   
-  dt<-read.csv("rules/extracurricular.csv")
+  dt<-read.csv("/var/www/html/rscript/knowork/rules/extracurricular.csv")
   sapply(dt[,1],function(x){grep(x,txt)})->chk
   which(unlist(lapply(chk,function(x){identical(x, integer(0))}))!=T)->ind
   if(identical(ind,integer(0))==T){
@@ -126,7 +126,7 @@ mark_corpus<-function(txt){
     for(i in ind){txt<-sub(dt[,1][i],"***extracurricular",txt)
     }}
   
-  dt<-read.csv("rules/misc.csv")
+  dt<-read.csv("/var/www/html/rscript/knowork/rules/misc.csv")
   sapply(dt[,1],function(x){grep(x,txt)})->chk
   which(unlist(lapply(chk,function(x){identical(x, integer(0))}))!=T)->ind
   if(identical(ind,integer(0))==T){
@@ -135,7 +135,7 @@ mark_corpus<-function(txt){
     for(i in ind){txt<-sub(dt[,1][i],"***misc",txt)
     }}
   
-  dt<-read.csv("rules/skills.csv")
+  dt<-read.csv("/var/www/html/rscript/knowork/rules/skills.csv")
   sapply(dt[,1],function(x){grep(x,txt)})->chk
   which(unlist(lapply(chk,function(x){identical(x, integer(0))}))!=T)->ind
   if(identical(ind,integer(0))==T){
@@ -145,7 +145,7 @@ mark_corpus<-function(txt){
       txt<-sub(dt[,1][i],"***skills",txt)
     }}
   
-  dt<-read.csv("rules/work_exp.csv")
+  dt<-read.csv("/var/www/html/rscript/knowork/rules/work_exp.csv")
   sapply(dt[,1],function(x){grep(x,txt)})->chk
   which(unlist(lapply(chk,function(x){identical(x, integer(0))}))!=T)->ind
   if(identical(ind,integer(0))==T){
@@ -298,7 +298,7 @@ extracurricular_finder<-function(txx){
   paste(out,collapse = ",")
 }
 
-load("data.RData")
+load("/var/www/html/rscript/knowork/data.RData")
 tp<-names(notc)
 if(grep(pattern = "pdf$",x = args[1])>0){
   files<-args[1]

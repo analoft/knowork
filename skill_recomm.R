@@ -1,6 +1,6 @@
-args <- commandArgs(trailingOnly = TRUE)args <- commandArgs(trailingOnly = TRUE)
+args <- commandArgs(trailingOnly = TRUE)
 
-load("data.RData")
+load("/var/www/html/rscript/knowork/data.RData")
 list.of.packages <- c("plyr","stringr","jsonlite")
 
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
