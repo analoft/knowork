@@ -1,6 +1,6 @@
 #install.packages("tm") # only need to do once
 args <- commandArgs(trailingOnly = TRUE)
-list.of.packages <- c("tm","pdftools","data.table","plyr")
+list.of.packages <- c("tm","pdftools","data.table","plyr","textreadr")
 
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 if(length(new.packages))
@@ -169,7 +169,7 @@ summary_finder<-function(txx){
   out<-list()
   for(i in ind){
     tmp<-txx[i]
-    tp<- unlist(strsplit(tmp,"\r\n"))[-1]
+    tp<- unlist(strsplit(tmp,"\r\n"))
     out<-c(out,sub("\\s",":",paste(gsub("^\\s+|\\s+$", "", tp),collapse=",")))
   }
   
@@ -184,7 +184,7 @@ education_finder<-function(txx){
   out<-list()
   for(i in ind){
     tmp<-txx[i]
-    tp<- unlist(strsplit(tmp,"\r\n"))[-1]
+    tp<- unlist(strsplit(tmp,"\r\n"))
     out<-c(out,sub("\\s",":",paste(gsub("^\\s+|\\s+$", "", tp),collapse=",")))
   }
   
@@ -199,7 +199,7 @@ accomplishments_finder<-function(txx){
   out<-list()
   for(i in ind){
     tmp<-txx[i]
-    tp<- unlist(strsplit(tmp,"\r\n"))[-1]
+    tp<- unlist(strsplit(tmp,"\r\n"))
     out<-c(out,sub("\\s",":",paste(gsub("^\\s+|\\s+$", "", tp),collapse=",")))
   }
   
@@ -216,7 +216,7 @@ awards_finder<-function(txx){
   out<-list()
   for(i in ind){
     tmp<-txx[i]
-    tp<- unlist(strsplit(tmp,"\r\n"))[-1]
+    tp<- unlist(strsplit(tmp,"\r\n"))
     out<-c(out,sub("\\s",":",paste(gsub("^\\s+|\\s+$", "", tp),collapse=",")))
   }
   
@@ -231,7 +231,7 @@ credibility_finder<-function(txx){
   out<-list()
   for(i in ind){
     tmp<-txx[i]
-    tp<- unlist(strsplit(tmp,"\r\n"))[-1]
+    tp<- unlist(strsplit(tmp,"\r\n"))
     out<-c(out,sub("\\s",":",paste(gsub("^\\s+|\\s+$", "", tp),collapse=",")))
   }
   
@@ -245,7 +245,7 @@ skills_finder<-function(txx){
   out<-list()
   for(i in ind){
     tmp<-txx[i]
-    tp<- unlist(strsplit(tmp,"\r\n"))[-1]
+    tp<- unlist(strsplit(tmp,"\r\n"))
     out<-c(out,sub("\\s",":",paste(gsub("^\\s+|\\s+$", "", tp),collapse=",")))
   }
   
@@ -259,7 +259,7 @@ work_exp_finder<-function(txx){
   out<-list()
   for(i in ind){
     tmp<-txx[i]
-    tp<- unlist(strsplit(tmp,"\r\n"))[-1]
+    tp<- unlist(strsplit(tmp,"\r\n"))
     out<-c(out,sub("\\s",":",paste(gsub("^\\s+|\\s+$", "", tp),collapse=",")))
   }
   
@@ -273,7 +273,7 @@ misc_finder<-function(txx){
   out<-list()
   for(i in ind){
     tmp<-txx[i]
-    tp<- unlist(strsplit(tmp,"\r\n"))[-1]
+    tp<- unlist(strsplit(tmp,"\r\n"))
     out<-c(out,sub("\\s",":",paste(gsub("^\\s+|\\s+$", "", tp),collapse=",")))
   }
   
@@ -289,7 +289,7 @@ extracurricular_finder<-function(txx){
   out<-list()
   for(i in ind){
     tmp<-txx[i]
-    tp<- unlist(strsplit(tmp,"\r\n"))[-1]
+    tp<- unlist(strsplit(tmp,"\r\n"))
     out<-c(out,sub("\\s",":",paste(gsub("^\\s+|\\s+$", "", tp),collapse=",")))
   }
   
@@ -299,8 +299,12 @@ extracurricular_finder<-function(txx){
 }
 
 load("/var/www/html/rscript/knowork/data.RData")
+stp<-stopwords::stopwords(language = "en", source = "smart")
+stp<-stp[! stp %in% letters ]
 tp<-names(notc)
-if(grep(pattern = "pdf$",x = args[1])>0){
+
+if(!is.null(args)){
+if(grepl(pattern = "pdf$",x = args[1])){
   files<-args[1]
   Rpdf <- readPDF(control = list(text = "-layout"))
   
@@ -310,46 +314,37 @@ if(grep(pattern = "pdf$",x = args[1])>0){
     txt
   }  
   
-  file_content<-read_pdf(files)
-  x<-file_content
+  x<-read_pdf(files)
+}else{
+  x<-textreadr::read_document(args[1])
+x<-paste0(x,collapse = ",")
+  }
   
   # paste(paste0(col_n,"<-","unlist(lapply(file_content,function(x){tx<-mark_corpus(x)
   #     txx<-strsplit(x = tx,split = '\\*\\*\\*')
   #              txx<-unlist(txx)
   #              ",col_n,"_finder", "}))"),collapse = ";")
-  
-  work_exp<-{tx<-mark_corpus(x)
-             txx<-strsplit(x = tx,split = '\\*\\*\\*')
-             txx<-unlist(txx)
-             work_exp_finder(txx)};
-  
-  summary<-{tx<-mark_corpus(x)
-  txx<-strsplit(x = tx,split = '\\*\\*\\*')
+  mark_content<-mark_corpus(x)
+  txx<-strsplit(x = mark_content,split = '\\*\\*\\*')
   txx<-unlist(txx)
-  summary_finder(txx)};
   
-  skills<-{tx<-mark_corpus(x)
-  txx<-strsplit(x = tx,split = '\\*\\*\\*')
-  txx<-unlist(txx)
-  skills_finder(txx)};
+  work_exp<-  work_exp_finder(txx)
+  summary<- summary_finder(txx)
+  skills<-skills_finder(txx)
+  education<-education_finder(txx)
+  accomplishments<-accomplishments_finder(txx)
   
+  text1<- paste(education,work_exp,summary,accomplishments)
+  if(!is.null(skills)){
+    text<-removeWords(tolower(skills),stp)
+  }else {text<-removeWords(tolower(text1),stp)}
   
-  education<-{tx<-mark_corpus(x)
-  txx<-strsplit(x = tx,split = '\\*\\*\\*')
-  txx<-unlist(txx)
-  education_finder(txx)};
-  
-  accomplishments<-{tx<-mark_corpus(x)
-  txx<-strsplit(x = tx,split = '\\*\\*\\*')
-  txx<-unlist(txx)
-  accomplishments_finder(txx)}
-  
-  text<- paste(education,work_exp,summary,skills,accomplishments)
   
   top_lst<-list()
   j<-1
+  
   for(i in tp){
-    if(tolower(i) %in% tolower(text)){
+    if(grepl(paste0(" ",tolower(i)),(text),fixed = T)){
       
       top_lst[[j]]<-i
       j<-j+1
@@ -358,11 +353,11 @@ if(grep(pattern = "pdf$",x = args[1])>0){
     top_lst<-unlist(top_lst)  
   }
   
-  if(is.null(top_lst)){
-    rtn<-"Can not find skills"
-    cat(sprintf("%s",rtn))
-  }else{ rtn<-top_lst
-  cat(sprintf("%s",paste0(rtn,collapse = ",")))}
-  
-  
+  top_lst<-unlist(top_lst) 
+
+if(is.null(top_lst)){
+  rtn<-"dummy"
+  cat(sprintf("%s",jsonlite::toJSON(rtn)))
+}else{ rtn<-top_lst
+cat(sprintf("%s",jsonlite::toJSON(rtn)))}
 }
