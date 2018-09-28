@@ -19,55 +19,8 @@ invisible(sapply(list.of.packages, require, character.only=TRUE))
 #finder function
 
 
-
-email_finder<-function(corpous){
-  emails = unlist(regmatches(corpous, gregexpr("([_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4}))", corpous)))
-  tmp<-unique(unlist( emails))
-  
-  if(identical( character(0),tmp)){
-    tmp<-"not available"
-  } else {
-    tmp<-paste(tmp,collapse = ",")
-    
-  }
-  
-  tmp[1]
-}
-
-
-phone_finder<-function(corpous){
-  strings.cleaned = gsub("[- .)(+]|[a-zA-Z]*:?","", corpous)
-  ph_num<-str_extract_all(strings.cleaned,"(?:(?:\\+|0{0,2})91(\\s*[\ -]\\s*)?|[0]?)?[789]\\d{9}|(\\d[ -]?){10}\\d$")
-  ph_num<-unlist(ph_num)
-  
-  if(identical( character(0),(ph_num))){
-    ph_num<-"not available"
-  } else {
-    ph_num<-paste(ph_num,collapse = ",")
-    
-  }
-  #strings.cleaned = strings.cleaned[-grep("/", strings.cleaned)]
-  
-  
-  #grep("^(?:(?:\\+|0{0,2})91(\\s*[\ -]\\s*)?|[0]?)?[789]\\d{9}|(\\d[ -]?){10}\\d$",typ, value = TRUE)
-  # Split each phone number with a "/" into two phone numbers
-  # special.cases = unlist(lapply(strsplit(special.cases, "/"), 
-  #                               function(x) {
-  #                                 c(x[1], 
-  #                                   paste0(substr(x[1], 1, nchar(x[1]) - nchar(x[2])), x[2]))
-  #                               }))
-  # strings.cleaned = c(strings.cleaned, special.cases)
-  # 
-  # # Select last 8 digits from each phone number
-  # phone.nums = as.numeric(substr(strings.cleaned, nchar(strings.cleaned) - 7, 
-  #                                nchar(strings.cleaned)))
-  # 
-  # 
-  ph_num[1]
-}
-
 mark_corpus<-function(txt){
-  dt<-read.csv("/var/www/html/rscript/knowork/rules/summary.csv")
+  dt<-read.csv("/Users/kartikeya kirar/Desktop/work_folder/greg_skills_recommandation/v1_skillsSearch/knowork/rules/summary.csv")
   sapply(dt[,1],function(x){grep(x,txt)})->chk
   which(unlist(lapply(chk,function(x){identical(x, integer(0))}))!=T)->ind
   if(identical(ind,integer(0))==T){
@@ -77,7 +30,7 @@ mark_corpus<-function(txt){
     }}
   
   
-  dt<-read.csv("/var/www/html/rscript/knowork/rules/accomplishments.csv")
+  dt<-read.csv("/Users/kartikeya kirar/Desktop/work_folder/greg_skills_recommandation/v1_skillsSearch/knowork/rules/accomplishments.csv")
   sapply(dt[,1],function(x){grep(x,txt)})->chk
   which(unlist(lapply(chk,function(x){identical(x, integer(0))}))!=T)->ind
   if(identical(ind,integer(0))==T){
@@ -88,7 +41,7 @@ mark_corpus<-function(txt){
     }}
   
   
-  dt<-read.csv("/var/www/html/rscript/knowork/rules/awards.csv")
+  dt<-read.csv("/Users/kartikeya kirar/Desktop/work_folder/greg_skills_recommandation/v1_skillsSearch/knowork/rules/awards.csv")
   sapply(dt[,1],function(x){grep(x,txt)})->chk
   which(unlist(lapply(chk,function(x){identical(x, integer(0))}))!=T)->ind
   if(identical(ind,integer(0))==T){
@@ -98,7 +51,7 @@ mark_corpus<-function(txt){
       txt<-sub(dt[,1][i],"***awards",txt)
     }}
   
-  dt<-read.csv("/var/www/html/rscript/knowork/rules/credibility.csv")
+  dt<-read.csv("/Users/kartikeya kirar/Desktop/work_folder/greg_skills_recommandation/v1_skillsSearch/knowork/rules/credibility.csv")
   sapply(dt[,1],function(x){grep(x,txt)})->chk
   which(unlist(lapply(chk,function(x){identical(x, integer(0))}))!=T)->ind
   if(identical(ind,integer(0))==T){
@@ -108,7 +61,7 @@ mark_corpus<-function(txt){
       txt<-sub(dt[,1][i],"***credibility",txt)
     }
   }
-  dt<-read.csv("/var/www/html/rscript/knowork/rules/education.csv")
+  dt<-read.csv("/Users/kartikeya kirar/Desktop/work_folder/greg_skills_recommandation/v1_skillsSearch/knowork/rules/education.csv")
   sapply(dt[,1],function(x){grep(x,txt)})->chk
   which(unlist(lapply(chk,function(x){identical(x, integer(0))}))!=T)->ind
   if(identical(ind,integer(0))==T){
@@ -117,7 +70,7 @@ mark_corpus<-function(txt){
     for(i in ind){txt<-sub(dt[,1][i],"***education",txt)
     }}
   
-  dt<-read.csv("/var/www/html/rscript/knowork/rules/extracurricular.csv")
+  dt<-read.csv("/Users/kartikeya kirar/Desktop/work_folder/greg_skills_recommandation/v1_skillsSearch/knowork/rules/extracurricular.csv")
   sapply(dt[,1],function(x){grep(x,txt)})->chk
   which(unlist(lapply(chk,function(x){identical(x, integer(0))}))!=T)->ind
   if(identical(ind,integer(0))==T){
@@ -126,7 +79,7 @@ mark_corpus<-function(txt){
     for(i in ind){txt<-sub(dt[,1][i],"***extracurricular",txt)
     }}
   
-  dt<-read.csv("/var/www/html/rscript/knowork/rules/misc.csv")
+  dt<-read.csv("/Users/kartikeya kirar/Desktop/work_folder/greg_skills_recommandation/v1_skillsSearch/knowork/rules/misc.csv")
   sapply(dt[,1],function(x){grep(x,txt)})->chk
   which(unlist(lapply(chk,function(x){identical(x, integer(0))}))!=T)->ind
   if(identical(ind,integer(0))==T){
@@ -135,7 +88,7 @@ mark_corpus<-function(txt){
     for(i in ind){txt<-sub(dt[,1][i],"***misc",txt)
     }}
   
-  dt<-read.csv("/var/www/html/rscript/knowork/rules/skills.csv")
+  dt<-read.csv("/Users/kartikeya kirar/Desktop/work_folder/greg_skills_recommandation/v1_skillsSearch/knowork/rules/skills.csv")
   sapply(dt[,1],function(x){grep(x,txt)})->chk
   which(unlist(lapply(chk,function(x){identical(x, integer(0))}))!=T)->ind
   if(identical(ind,integer(0))==T){
@@ -145,7 +98,7 @@ mark_corpus<-function(txt){
       txt<-sub(dt[,1][i],"***skills",txt)
     }}
   
-  dt<-read.csv("/var/www/html/rscript/knowork/rules/work_exp.csv")
+  dt<-read.csv("/Users/kartikeya kirar/Desktop/work_folder/greg_skills_recommandation/v1_skillsSearch/knowork/rules/work_exp.csv")
   sapply(dt[,1],function(x){grep(x,txt)})->chk
   which(unlist(lapply(chk,function(x){identical(x, integer(0))}))!=T)->ind
   if(identical(ind,integer(0))==T){
@@ -158,7 +111,6 @@ mark_corpus<-function(txt){
   txt
 }
 
-col_n<-c("work_exp","summary","skills","misc","extracurricular","education","credibility","awards","accomplishments")
 
 
 
@@ -297,8 +249,9 @@ extracurricular_finder<-function(txx){
   out<-out[!duplicated(out)]
   paste(out,collapse = ",")
 }
-
-load("/var/www/html/rscript/knowork/data.RData")
+# /var/www/html/rscript/knowork/
+# "/Users/kartikeya kirar/Desktop/work_folder/greg_skills_recommandation/v1_skillsSearch/knowork/"
+load("/Users/kartikeya kirar/Desktop/work_folder/greg_skills_recommandation/v1_skillsSearch/knowork/data.RData")
 stp<-stopwords::stopwords(language = "en", source = "smart")
 stp<-stp[! stp %in% letters ]
 tp<-names(notc)
@@ -361,3 +314,4 @@ if(is.null(top_lst)){
 }else{ rtn<-top_lst
 cat(sprintf("%s",jsonlite::toJSON(rtn)))}
 }
+
