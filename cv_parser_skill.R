@@ -255,7 +255,7 @@ load("/var/www/html/rscript/knowork/data.RData")
 stp<-stopwords::stopwords(language = "en", source = "smart")
 stp<-stp[! stp %in% letters ]
 tp<-names(notc)
-
+print(args)
 if(!is.null(args)){
 if(grepl(pattern = "pdf$",x = args[1])){
   files<-args[1]
