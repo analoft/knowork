@@ -1,6 +1,6 @@
 #install.packages("tm") # only need to do once
 args <- commandArgs(trailingOnly = TRUE)
-list.of.packages <- c("tm","pdftools","data.table","plyr","textreadr")
+list.of.packages <- c("tm","pdftools","data.table","plyr","textreadr","stopwords")
 
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 if(length(new.packages))
@@ -71,7 +71,7 @@ mark_corpus<-function(txt){
   sapply(dt[,1],function(x){grep(x,txt)})->chk
   which(unlist(lapply(chk,function(x){identical(x, integer(0))}))!=T)->ind
   if(identical(ind,integer(0))==T){
-    print("NO Summary found")
+    #print("NO Summary found")
   }else{
     for(i in ind){txt<-sub(dt[,1][i],"***summary",txt)
     }}
@@ -81,7 +81,7 @@ mark_corpus<-function(txt){
   sapply(dt[,1],function(x){grep(x,txt)})->chk
   which(unlist(lapply(chk,function(x){identical(x, integer(0))}))!=T)->ind
   if(identical(ind,integer(0))==T){
-    print("NO accomplishment found")
+    #print("NO accomplishment found")
   } else {
     for(i in ind){
       txt<-sub(dt[,1][i],"***accomplishments",txt)
@@ -92,7 +92,7 @@ mark_corpus<-function(txt){
   sapply(dt[,1],function(x){grep(x,txt)})->chk
   which(unlist(lapply(chk,function(x){identical(x, integer(0))}))!=T)->ind
   if(identical(ind,integer(0))==T){
-    print("NO awards found")
+    #print("NO awards found")
   } else {
     for(i in ind){
       txt<-sub(dt[,1][i],"***awards",txt)
@@ -102,7 +102,7 @@ mark_corpus<-function(txt){
   sapply(dt[,1],function(x){grep(x,txt)})->chk
   which(unlist(lapply(chk,function(x){identical(x, integer(0))}))!=T)->ind
   if(identical(ind,integer(0))==T){
-    print("NO credibility found")
+    #print("NO credibility found")
   } else {
     for(i in ind){
       txt<-sub(dt[,1][i],"***credibility",txt)
@@ -112,7 +112,7 @@ mark_corpus<-function(txt){
   sapply(dt[,1],function(x){grep(x,txt)})->chk
   which(unlist(lapply(chk,function(x){identical(x, integer(0))}))!=T)->ind
   if(identical(ind,integer(0))==T){
-    print("NO education found")
+    #print("NO education found")
   } else {
     for(i in ind){txt<-sub(dt[,1][i],"***education",txt)
     }}
@@ -121,7 +121,7 @@ mark_corpus<-function(txt){
   sapply(dt[,1],function(x){grep(x,txt)})->chk
   which(unlist(lapply(chk,function(x){identical(x, integer(0))}))!=T)->ind
   if(identical(ind,integer(0))==T){
-    print("NO extra curricular found")
+    #print("NO extra curricular found")
   } else {
     for(i in ind){txt<-sub(dt[,1][i],"***extracurricular",txt)
     }}
@@ -130,7 +130,7 @@ mark_corpus<-function(txt){
   sapply(dt[,1],function(x){grep(x,txt)})->chk
   which(unlist(lapply(chk,function(x){identical(x, integer(0))}))!=T)->ind
   if(identical(ind,integer(0))==T){
-    print("NO misc found")
+    #print("NO misc found")
   } else {
     for(i in ind){txt<-sub(dt[,1][i],"***misc",txt)
     }}
@@ -139,7 +139,7 @@ mark_corpus<-function(txt){
   sapply(dt[,1],function(x){grep(x,txt)})->chk
   which(unlist(lapply(chk,function(x){identical(x, integer(0))}))!=T)->ind
   if(identical(ind,integer(0))==T){
-    print("NO Skills found")
+    #print("NO Skills found")
   } else {
     for(i in ind){
       txt<-sub(dt[,1][i],"***skills",txt)
@@ -149,7 +149,7 @@ mark_corpus<-function(txt){
   sapply(dt[,1],function(x){grep(x,txt)})->chk
   which(unlist(lapply(chk,function(x){identical(x, integer(0))}))!=T)->ind
   if(identical(ind,integer(0))==T){
-    print("NO experience found")
+    #print("NO experience found")
   } else {
     for(i in ind){
       txt<-sub(dt[,1][i],"***work_exp",txt)
