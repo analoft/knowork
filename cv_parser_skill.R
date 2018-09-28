@@ -20,7 +20,7 @@ invisible(sapply(list.of.packages, require, character.only=TRUE))
 
 
 mark_corpus<-function(txt){
-  dt<-read.csv("/Users/kartikeya kirar/Desktop/work_folder/greg_skills_recommandation/v1_skillsSearch/knowork/rules/summary.csv")
+  dt<-read.csv("/var/www/html/rscript/knowork/rules/summary.csv")
   sapply(dt[,1],function(x){grep(x,txt)})->chk
   which(unlist(lapply(chk,function(x){identical(x, integer(0))}))!=T)->ind
   if(identical(ind,integer(0))==T){
@@ -30,7 +30,7 @@ mark_corpus<-function(txt){
     }}
   
   
-  dt<-read.csv("/Users/kartikeya kirar/Desktop/work_folder/greg_skills_recommandation/v1_skillsSearch/knowork/rules/accomplishments.csv")
+  dt<-read.csv("/var/www/html/rscript/knowork/rules/accomplishments.csv")
   sapply(dt[,1],function(x){grep(x,txt)})->chk
   which(unlist(lapply(chk,function(x){identical(x, integer(0))}))!=T)->ind
   if(identical(ind,integer(0))==T){
@@ -41,7 +41,7 @@ mark_corpus<-function(txt){
     }}
   
   
-  dt<-read.csv("/Users/kartikeya kirar/Desktop/work_folder/greg_skills_recommandation/v1_skillsSearch/knowork/rules/awards.csv")
+  dt<-read.csv("/var/www/html/rscript/knowork/rules/awards.csv")
   sapply(dt[,1],function(x){grep(x,txt)})->chk
   which(unlist(lapply(chk,function(x){identical(x, integer(0))}))!=T)->ind
   if(identical(ind,integer(0))==T){
@@ -51,7 +51,7 @@ mark_corpus<-function(txt){
       txt<-sub(dt[,1][i],"***awards",txt)
     }}
   
-  dt<-read.csv("/Users/kartikeya kirar/Desktop/work_folder/greg_skills_recommandation/v1_skillsSearch/knowork/rules/credibility.csv")
+  dt<-read.csv("/var/www/html/rscript/knowork/rules/credibility.csv")
   sapply(dt[,1],function(x){grep(x,txt)})->chk
   which(unlist(lapply(chk,function(x){identical(x, integer(0))}))!=T)->ind
   if(identical(ind,integer(0))==T){
@@ -61,7 +61,7 @@ mark_corpus<-function(txt){
       txt<-sub(dt[,1][i],"***credibility",txt)
     }
   }
-  dt<-read.csv("/Users/kartikeya kirar/Desktop/work_folder/greg_skills_recommandation/v1_skillsSearch/knowork/rules/education.csv")
+  dt<-read.csv("/var/www/html/rscript/knowork/rules/education.csv")
   sapply(dt[,1],function(x){grep(x,txt)})->chk
   which(unlist(lapply(chk,function(x){identical(x, integer(0))}))!=T)->ind
   if(identical(ind,integer(0))==T){
@@ -70,7 +70,7 @@ mark_corpus<-function(txt){
     for(i in ind){txt<-sub(dt[,1][i],"***education",txt)
     }}
   
-  dt<-read.csv("/Users/kartikeya kirar/Desktop/work_folder/greg_skills_recommandation/v1_skillsSearch/knowork/rules/extracurricular.csv")
+  dt<-read.csv("/var/www/html/rscript/knowork/rules/extracurricular.csv")
   sapply(dt[,1],function(x){grep(x,txt)})->chk
   which(unlist(lapply(chk,function(x){identical(x, integer(0))}))!=T)->ind
   if(identical(ind,integer(0))==T){
@@ -79,7 +79,7 @@ mark_corpus<-function(txt){
     for(i in ind){txt<-sub(dt[,1][i],"***extracurricular",txt)
     }}
   
-  dt<-read.csv("/Users/kartikeya kirar/Desktop/work_folder/greg_skills_recommandation/v1_skillsSearch/knowork/rules/misc.csv")
+  dt<-read.csv("/var/www/html/rscript/knowork/rules/misc.csv")
   sapply(dt[,1],function(x){grep(x,txt)})->chk
   which(unlist(lapply(chk,function(x){identical(x, integer(0))}))!=T)->ind
   if(identical(ind,integer(0))==T){
@@ -88,7 +88,7 @@ mark_corpus<-function(txt){
     for(i in ind){txt<-sub(dt[,1][i],"***misc",txt)
     }}
   
-  dt<-read.csv("/Users/kartikeya kirar/Desktop/work_folder/greg_skills_recommandation/v1_skillsSearch/knowork/rules/skills.csv")
+  dt<-read.csv("/var/www/html/rscript/knowork/rules/skills.csv")
   sapply(dt[,1],function(x){grep(x,txt)})->chk
   which(unlist(lapply(chk,function(x){identical(x, integer(0))}))!=T)->ind
   if(identical(ind,integer(0))==T){
@@ -98,7 +98,7 @@ mark_corpus<-function(txt){
       txt<-sub(dt[,1][i],"***skills",txt)
     }}
   
-  dt<-read.csv("/Users/kartikeya kirar/Desktop/work_folder/greg_skills_recommandation/v1_skillsSearch/knowork/rules/work_exp.csv")
+  dt<-read.csv("/var/www/html/rscript/knowork/rules/work_exp.csv")
   sapply(dt[,1],function(x){grep(x,txt)})->chk
   which(unlist(lapply(chk,function(x){identical(x, integer(0))}))!=T)->ind
   if(identical(ind,integer(0))==T){
@@ -250,8 +250,8 @@ extracurricular_finder<-function(txx){
   paste(out,collapse = ",")
 }
 # /var/www/html/rscript/knowork/
-# "/Users/kartikeya kirar/Desktop/work_folder/greg_skills_recommandation/v1_skillsSearch/knowork/"
-load("/Users/kartikeya kirar/Desktop/work_folder/greg_skills_recommandation/v1_skillsSearch/knowork/data.RData")
+# "/var/www/html/rscript/knowork/"
+load("/var/www/html/rscript/knowork/data.RData")
 stp<-stopwords::stopwords(language = "en", source = "smart")
 stp<-stp[! stp %in% letters ]
 tp<-names(notc)
