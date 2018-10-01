@@ -1,14 +1,18 @@
 #install.packages("tm") # only need to do once
 args <- commandArgs(trailingOnly = TRUE)
-list.of.packages <- c("tm","pdftools","data.table","plyr","textreadr","stopwords")
+# list.of.packages <- c("tm","pdftools","data.table","plyr","textreadr","stopwords")
+# 
+# new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+# if(length(new.packages))
+#   install.packages(new.packages)
+# invisible(sapply(list.of.packages, require, character.only=TRUE))
 
-new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
-if(length(new.packages))
-  install.packages(new.packages)
-invisible(sapply(list.of.packages, require, character.only=TRUE))
-
-
-
+invisible(library("tm",quietly = T))
+invisible(library("pdftools",quietly = T))
+invisible(library("data.table",quietly = T))
+invisible(library("plyr",quietly = T))
+invisible(library("textreadr",quietly = T))
+invisible(library("stopwords",quietly = T))
 # files <- list.files(path = "Resume-Parser/",pattern = "pdf$")
 # files_doc <- list.files(path = "Resume-Parser/",pattern = "doc$")
 # files_docx <- list.files(path = "Resume-Parser/",pattern = "docx$")
