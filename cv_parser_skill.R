@@ -292,7 +292,7 @@ x<-paste0(x,collapse = ",")
   accomplishments<-accomplishments_finder(txx)
   
   text1<- paste(education,work_exp,summary,accomplishments)
-  if(!is.null(skills)|skills==""){
+  if(!(is.null(skills)|skills=="")){
     text<-removeWords(tolower(skills),stp)
   }else {text<-removeWords(tolower(text1),stp)}
   

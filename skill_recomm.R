@@ -15,7 +15,7 @@ skills<-names(notc)
 input <-args
  
   
-  if(typeof(input) == "list" & length(input) > 1){
+  if( length(input) > 1){
     top_lst<-list()
     j<-1
     for(i in input){
