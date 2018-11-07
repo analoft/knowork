@@ -1,12 +1,11 @@
 args <- commandArgs(trailingOnly = TRUE)
 
 load("/var/www/html/rscript/knowork/data.RData")
-list.of.packages <- c("plyr","stringr","jsonlite")
-
-new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
-if(length(new.packages))
-  install.packages(new.packages)
-invisible(sapply(list.of.packages, require, character.only=TRUE))
+invisible(library("plyr",quietly = T,warn.conflicts = F))
+invisible(library("textreadr",quietly = T,warn.conflicts = F))
+invisible(library("stopwords",quietly = T,warn.conflicts = F))
+invisible(library("stringr",quietly = T,warn.conflicts = F))
+invisible(library("jsonlite",quietly = T,warn.conflicts = F))
 
 skills<-names(notc)
 
